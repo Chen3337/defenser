@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const routes = require('./routes/api');
 const path = require('path');
 const passport = require('./models/passport/passportuser');
+const session = require('express-session');
 require('dotenv').config();
 
 const app = express();
@@ -18,7 +19,7 @@ mongoose.connect(process.env.DB,
 );
 
 app.use(logger('dev'));
-
+app.use( session({ secret: 'whatthehellisthis' }));
 app.use(passport.initialize());
 app.use(passport.session());
 

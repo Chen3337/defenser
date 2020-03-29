@@ -3,8 +3,6 @@ const router = express.Router();
 const User = require('../models/passport/user');
 const passport = require('../models/passport/passportuser');
 
-var username;
-
 // add a new user route
 router.post('/', (req, res) => {
     console.log('user signup');
@@ -53,7 +51,7 @@ router.get('/', (req, res, next) => {
     console.log('===== user!!======')
     console.log(req.user)
     if (req.user) {
-        res.json({ user: req.user })
+        res.json({ user: req.user.username })
     } else {
         res.json({ user: null })
     }

@@ -3,23 +3,23 @@ import React, { Component } from 'react';
 
 class App extends Component {
   state = {
-    isLandscape: window.screen.orientation.type
+    isLandscape: window.orientation
   }
   componentDidMount() {
-    window.screen.orientation.addEventListener('change', () => {
+
+    window.addEventListener("orientationchange", () => {
       this.setState({
-        isLandscape: window.screen.orientation.type
+        isLandscape: window.orientation
       })
     });
   }
   render() {
-
     return (
       <div>
-        {this.state.isLandscape.charAt(0) === "l"
-        ? <h2>{this.state.isLandscape}</h2>
-        : <h2>{this.state.isLandscape} not Landscape</h2>
-      }
+        {this.state.isLandscape === 90 || this.state.isLandscape === -90
+          ? <h2>{this.state.isLandscape} Landscape</h2>
+          : <h2>{this.state.isLandscape} not Landscape</h2>
+        }
       </div>
     )
   }

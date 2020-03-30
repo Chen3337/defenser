@@ -6,7 +6,6 @@ class App extends Component {
     isLandscape: window.orientation
   }
   componentDidMount() {
-
     window.addEventListener("orientationchange", () => {
       this.setState({
         isLandscape: window.orientation
@@ -14,9 +13,10 @@ class App extends Component {
     });
   }
   render() {
+    console.log(this.state.isLandscape);
     return (
       <div>
-        {this.state.isLandscape === 90 || this.state.isLandscape === -90
+        {Math.abs(this.state.isLandscape) === 90
           ? <h2>{this.state.isLandscape} Landscape</h2>
           : <h2>{this.state.isLandscape} not Landscape</h2>
         }

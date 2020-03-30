@@ -8,22 +8,16 @@ class App extends Component {
   componentDidMount() {
     if (!window.orientation) {
       window.addEventListener("resize", () => {
-        console.log(window.innerWidth);
-        console.log(window.innerHeight);
         if ((window.innerWidth -100) > window.innerHeight) {
           this.setState({
             isLandscape: 90
-          })
+          });
         }
         else {
           this.setState({
             isLandscape: 0
           })
         }
-
-      })
-      this.setState({
-        isLandscape: 90
       })
     }
     else {

@@ -36,8 +36,8 @@ class App extends Component {
     return (
       <div>
         {Math.abs(this.state.isLandscape) === 90
-          ? <h2>{this.state.isLandscape} Landscape</h2>
-          : <h2>{this.state.isLandscape} not Landscape</h2>
+          ? <h2>{this.state.isLandscape} Landscape test</h2>
+          : <h2>{this.state.isLandscape} not Landscape test</h2>
         }
       </div>
     )

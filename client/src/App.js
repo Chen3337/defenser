@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-
-
 class App extends Component {
   state = {
     isLandscape: window.orientation
   }
   componentDidMount() {
     if (!window.orientation) {
-      if ((window.innerWidth -100) > window.innerHeight) {
+      if ((window.innerWidth - 100) > window.innerHeight) {
         this.setState({
           isLandscape: 90
         });
       }
       window.addEventListener("resize", () => {
-        if ((window.innerWidth -100) > window.innerHeight) {
+        if ((window.innerWidth - 100) > window.innerHeight) {
           this.setState({
             isLandscape: 90
           });
@@ -32,6 +30,7 @@ class App extends Component {
         })
       });
     }
+    window.screen.orientation.lock('landscape');
   }
   render() {
     return (

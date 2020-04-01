@@ -32,7 +32,6 @@ class App extends Component {
     }
     
     window.screen.orientation.lock('landscape').then((res)=>{console.log(res)}).catch((res)=>{console.log(res)});
-    screen.orientation.lock('landscape').then((res)=>{console.log(res)}).catch((res)=>{console.log(res)});
   }
   render() {
     return (

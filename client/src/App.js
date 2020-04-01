@@ -31,13 +31,13 @@ class App extends Component {
       });
     }
     
-    window.screen.orientation.lock('landscape').then((res)=>{console.log(res)}).catch((res)=>{console.log(res)})
-    screen.orientation.lock('landscape').then((res)=>{console.log(res)}).catch((res)=>{console.log(res)})
-    window.orientation.lock(90);
+    window.screen.orientation.lock('landscape').then((res)=>{console.log(res)}).catch((res)=>{console.log(res)});
+    screen.orientation.lock('landscape').then((res)=>{console.log(res)}).catch((res)=>{console.log(res)});
   }
   render() {
     return (
       <div>
+        <p>test</p>
         {Math.abs(this.state.isLandscape) === 90
           ? <h2>{this.state.isLandscape} Landscape test</h2>
           : <h2>{this.state.isLandscape} not Landscape test</h2>

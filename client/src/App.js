@@ -30,7 +30,7 @@ class App extends Component {
         })
       });
     }
-    window.screen.orientation.lock('landscape');
+    window.orientation.lock(90);
   }
   render() {
     return (

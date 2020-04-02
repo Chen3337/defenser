@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Router from './components/router';
 class App extends Component {
   state = {
     isLandscape: window.orientation
@@ -37,8 +38,8 @@ class App extends Component {
       <div>
         <p>test</p>
         {Math.abs(this.state.isLandscape) === 90
-          ? <h2>{this.state.isLandscape} Landscape test</h2>
-          : <h2>{this.state.isLandscape} not Landscape test</h2>
+          ? <Router />
+          : <h2>rotate the screen or make the width of the screen larger than the height to begain</h2>
         }
       </div>
     )

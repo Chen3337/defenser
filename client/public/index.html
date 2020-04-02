@@ -27,9 +27,7 @@
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div>
-    <button id="start">start</button>
-  </div>
+
   <div id="root"></div>
   <!--
       This HTML file is a template.
@@ -41,17 +39,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  <script>
-    document.getElementById("start").addEventListener("click", start);
-    async function start() {
-      console.log("is run");
-      await screen.orientation.lock('landscape');
-      console.log("2");
-      document.documentElement.requestFullscreen();
-
-    }
-
-  </script>
 </body>
 
 </html>

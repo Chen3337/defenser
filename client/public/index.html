@@ -45,7 +45,7 @@
     document.getElementById("start").addEventListener("click", start);
     async function start() {
       console.log("is run");
-      await window.screen.orientation.lock('landscape').then((res) => { console.log(res) }).catch((res) => { console.log(res) });
+      await screen.orientation.lock('landscape');
       console.log("2");
       document.documentElement.requestFullscreen();
 

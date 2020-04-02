@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import Router from './components/router';
 class App extends Component {
   state = {
-    isLandscape: window.orientation
+    isLandscape: 90
   }
   componentDidMount() {
-    // if (!window.orientation) {
       if ((window.innerWidth - 100) > window.innerHeight) {
         this.setState({
           isLandscape: 90
@@ -23,15 +22,6 @@ class App extends Component {
           })
         }
       })
-    // }
-    // else {
-    //   window.addEventListener("orientationchange", () => {
-    //     this.setState({
-    //       isLandscape: window.orientation
-    //     })
-    //   });
-    // }
-
   }
   render() {
     return (

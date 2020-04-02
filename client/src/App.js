@@ -12,7 +12,6 @@ class App extends Component {
         });
       }
       window.addEventListener("resize", () => {
-         console.log("listen");
         if ((window.innerWidth - 100) > window.innerHeight) {
           this.setState({
             isLandscape: 90

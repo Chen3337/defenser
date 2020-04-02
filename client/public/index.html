@@ -43,10 +43,11 @@
     -->
   <script>
     document.getElementById("start").addEventListener("click", start);
-    function start() {
+    async function start() {
       console.log("is run");
-      window.screen.orientation.lock('landscape').then((res) => { console.log(res) }).catch((res) => { console.log(res) });
-      // document.documentElement.requestFullscreen();
+      await window.screen.orientation.lock('landscape').then((res) => { console.log(res) }).catch((res) => { console.log(res) });
+      console.log("2");
+      document.documentElement.requestFullscreen();
 
     }
 

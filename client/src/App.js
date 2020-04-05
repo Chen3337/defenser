@@ -30,7 +30,7 @@ checkIfLandscape = () =>{
       <div>
         {this.state.isLandscape === 90
           ? <Router />
-          : <h2>rotate the screen or make the width of the screen larger than the height to begain</h2>
+          : <h2>rotate the screen or make the width of the screen larger than the height to begain PWA</h2>
         }
       </div>
     )

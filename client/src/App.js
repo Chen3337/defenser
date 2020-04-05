@@ -5,32 +5,34 @@ class App extends Component {
     isLandscape: window.orientation
   }
   componentDidMount() {
-      window.addEventListener("resize", () => {
-        this.checkIfLandscape();
-      })
-      window.addEventListener("orientationchange", () => {
-        this.checkIfLandscape();
-      });
+    window.addEventListener("resize", () => {
       this.checkIfLandscape();
-}
-checkIfLandscape = () =>{
-  if ((window.innerWidth - 100) > window.innerHeight) {
-    this.setState({
-      isLandscape: 90
-    });
-  }
-  else {
-    this.setState({
-      isLandscape: 0
     })
+    window.addEventListener("orientationchange", () => {
+      this.checkIfLandscape();
+    });
+    this.checkIfLandscape();
   }
-}
+  checkIfLandscape = () => {
+    if ((window.innerWidth - 100) > window.innerHeight) {
+      this.setState({
+        isLandscape: 90
+      });
+    }
+    else {
+      this.setState({
+        isLandscape: 0
+      })
+    }
+  }
   render() {
     return (
       <div>
         {this.state.isLandscape === 90
           ? <Router />
-          : <h2>rotate the screen or make the width of the screen larger than the height to begain PWA</h2>
+          : <h2>rotate the screen (landscape) or make the width of the screen larger than the height to begain
+             <br />
+              If on phone add this to home screen for better experience (fullscreen)</h2>
         }
       </div>
     )

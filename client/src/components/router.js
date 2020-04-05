@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Login from './login/login';
-class Router extends Component {
+class Gamerouter extends Component {
 
 
 
@@ -17,4 +17,4 @@ class Router extends Component {
     }
 }
 
-export default Router;
+export default Gamerouter;

@@ -6,12 +6,12 @@ class App extends Component {
   }
   componentDidMount() {
       window.addEventListener("resize", () => {
-        this.checkIfLandscape;
+        this.checkIfLandscape();
       })
       window.addEventListener("orientationchange", () => {
-        this.checkIfLandscape;
+        this.checkIfLandscape();
       });
-      this.checkIfLandscape;
+      this.checkIfLandscape();
 }
 checkIfLandscape = () =>{
   if ((window.innerWidth - 100) > window.innerHeight) {

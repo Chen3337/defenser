@@ -31,9 +31,7 @@ class Login extends Component {
             }
             Axios.post('/api/login', data).then((results) => {
                 if(results.data.username){
-                    this.setState({
-                        errors: 'successful'
-                    })
+                    window.location.href = '/homepage';
                 }
             }).catch(()=> {
                 this.setState({

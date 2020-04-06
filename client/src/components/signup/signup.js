@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MainImage from '../../image/main.jpg';
-// import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Axios from 'axios';
 class Signup extends Component {
     state = {
@@ -31,7 +31,23 @@ class Signup extends Component {
             })
         }
         else{
-            Axios.post('')
+            var data = {
+                username: this.state.username,
+                password: this.state.password
+            }
+            Axios.post('/api/', data).then((results) => {
+                if(results.data.error){
+                    this.setState({
+                        errors: results.data.error
+                    })
+                }
+                else if(results.data.username){
+                    this.setState({
+                        errors: 'successful'
+                    })
+                }
+                
+            })
         }
     }
     render() {
@@ -54,6 +70,8 @@ class Signup extends Component {
                     <br></br>
                     <br></br>
                     <button style={{ width: '60%', backgroundColor: 'green', color: 'white', padding: '5px' }} onClick={() => this.signupfunc()}>Signup</button>
+                    <br></br>
+                    <Link to="/">[Already have a account?]</Link>
                 </div>
             </div>
         )

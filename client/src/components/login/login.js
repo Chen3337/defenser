@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MainImage from '../../image/main.jpg';
 import {Link} from "react-router-dom";
+import Axios from 'axios';
 class Login extends Component {
     state = {
         username: '',
@@ -24,7 +25,21 @@ class Login extends Component {
             })
         }
         else {
-
+            var data = {
+                username: this.state.username,
+                password: this.state.password
+            }
+            Axios.post('/api/login', data).then((results) => {
+                if(results.data.username){
+                    this.setState({
+                        errors: 'successful'
+                    })
+                }
+            }).catch(()=> {
+                this.setState({
+                    errors: 'wrong username or password'
+                })
+            })
         }
     }
     render() {

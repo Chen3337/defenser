@@ -32,6 +32,7 @@ class App extends Component {
           ? <Gamerouter />
           : <h2>rotate the screen (landscape) or make the width of the screen larger than the height to begain
              <br />
+             <br />
               If on phone add this to home screen for better experience (fullscreen)</h2>
         }
       </div>

@@ -54,7 +54,7 @@ class Game extends Component {
         return (
             <div>
                 
-                <button onClick={() => this.addMonster()} style={{ width: "10%", height: '5vh', position: "fixed", top:'0' }}>add monster</button>
+                <button onClick={() => this.addMonster()} style={{ width: "10%", height: '5vh', position: "fixed", top:'15',right:'15' }}>add</button>
                 <img style={{ display: 'none' }} ref={this.image} src={Image} alt="sprite" onLoad={() => { this.testing() }} />
                 <img style={{ width: "100%", height: '20vh', position: "fixed", bottom: "0" }} src={GroundImage} alt="ground" />
                 <div style={{ backgroundImage: `url(${MainImage})`, width: "100%", height: "100vh", backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>

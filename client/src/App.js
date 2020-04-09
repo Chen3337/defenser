@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Gamerouter from './components/router';
 class App extends Component {
   state = {
-    isLandscape: window.orientation
+    isLandscape: 0
   }
   componentDidMount() {
     window.addEventListener("resize", () => {
@@ -16,7 +16,7 @@ class App extends Component {
   checkIfLandscape = () => {
     if ((window.innerWidth - 100) > window.innerHeight) {
       if(this.state.isLandscape !== 90){
-        window.location.href = '/'
+        window.location.href = '/';
         this.setState({
           isLandscape: 90
         });

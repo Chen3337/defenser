@@ -15,9 +15,12 @@ class App extends Component {
   }
   checkIfLandscape = () => {
     if ((window.innerWidth - 100) > window.innerHeight) {
-      this.setState({
-        isLandscape: 90
-      });
+      if(this.state.isLandscape !== 90){
+        window.location.href = '/'
+        this.setState({
+          isLandscape: 90
+        });
+      }
     }
     else {
       this.setState({

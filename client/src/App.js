@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Gamerouter from './components/router';
 class App extends Component {
   state = {
-    isLandscape: 0
+    isLandscape: 90,
   }
   componentDidMount() {
     window.addEventListener("resize", () => {

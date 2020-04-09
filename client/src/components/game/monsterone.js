@@ -22,4 +22,4 @@ class Monsterone {
         context.drawImage(state.monsteroneImage, this.sprite.startX, this.sprite.startY, this.sprite.width, this.sprite.height, this.x, (this.y - this.sizeY), this.sizeX, this.sizeY);
     }
 }
-export default Monsterone
+export default Monsterone;

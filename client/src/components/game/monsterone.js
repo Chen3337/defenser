@@ -11,8 +11,8 @@ class Monsterone {
             height : 180,
         }
         this.sizeX = this.ScreenX * 0.1;
-        this.sizeY = this.ScreenY * 0.2;
-        this.mode = 'move';
+        this.sizeY = this.ScreenY * 0.25;
+        this.mode = 'attack';
         this.spriteNumber = 0;
         this.cycle = 1;
         this.speed = this.ScreenX * 0.0005;
@@ -24,7 +24,6 @@ class Monsterone {
         this.x += this.speed;
     }
     spriteChange() {
-        
         if(this.mode === 'stay'){
             this.sprite = {
                 startX : 0,
@@ -34,23 +33,61 @@ class Monsterone {
             }
         }
         else if(this.mode === 'move'){
+            this.move();
             this.sprite = {
                 startX : 0  + (this.spriteNumber * 130),
                 startY : 190,
                 width : 130,
                 height : 180,
             }
-            if(this.cycle === 0 || this.cycle === 15 || this.cycle === 30 || this.cycle === 45){
+            if(this.cycle % 15 === 0){
                 this.spriteNumber += 1;
             }
             if(this.spriteNumber > 3){
                 this.spriteNumber = 0;
             }
         }
+        else if(this.mode === 'attack'){
+            if(this.spriteNumber === 0){
+                this.sprite = {startX : 0, startY : 650, width : 140, height : 190}
+            }
+            else if(this.spriteNumber === 1){
+                this.sprite = {startX : 160, startY : 650, width : 140, height : 190}
+            }
+            else if(this.spriteNumber === 2){
+                this.sprite = {startX : 330, startY : 650, width : 140, height : 190}
+            }
+            else if(this.spriteNumber === 3){
+                this.sprite = {startX : 480, startY : 650, width : 140, height : 190}
+            }
+            else if(this.spriteNumber === 4){
+                this.sprite = {startX : 660, startY : 620, width : 190, height : 220}
+            }
+            else if(this.spriteNumber === 5){
+                this.sprite = {startX : 890, startY : 620, width : 195, height : 220}
+            }
+            else if(this.spriteNumber === 6){
+                this.sprite = {startX : 1135, startY : 620, width : 195, height : 220}
+            }
+            else if(this.spriteNumber === 7){
+                this.sprite = {startX : 1380, startY : 620, width : 195, height : 220}
+            }
+            else if(this.spriteNumber === 8){
+                this.sprite = {startX : 1580, startY : 620, width : 195, height : 220}
+            }
+            else if(this.spriteNumber === 9){
+                this.sprite = {startX : 0, startY : 650, width : 140, height : 190}
+            }
+            if(this.cycle % 7 === 0){
+                this.spriteNumber += 1;
+            }
+            if(this.spriteNumber > 9){
+                this.mode = 'move';
+            }
+        }
         
     }
     render(state) {
-        this.move();
         this.spriteChange();
         this.cycle += 1;
         if(this.cycle > 60){
@@ -64,6 +101,7 @@ class Monsterone {
         // drawimage(image, image startx, starty, widthsize, heightsize
         // , canvas x location, canvas y location, canvas image size x, canvas image size y)
         context.drawImage(state.monsteroneImage, this.sprite.startX, this.sprite.startY, this.sprite.width, this.sprite.height, 0, (0 - this.sizeY), this.sizeX, this.sizeY);
+        context.strokeRect( 0, (0 - this.sizeY), this.sizeX, this.sizeY);
         context.restore();
     }
 }

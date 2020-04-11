@@ -15,13 +15,13 @@ class Monsterone {
         this.mode = 'move';
         this.spriteNumber = 0;
         this.cycle = 1;
-        this.speed = this.ScreenX * 0.01;
+        this.speed = this.ScreenX * 0.0005;
     }
     mode(mode) {
         this.mode = mode;
     }
     move(){
-        this.x += 1;
+        this.x += this.speed;
     }
     spriteChange() {
         

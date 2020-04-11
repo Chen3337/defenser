@@ -16,7 +16,7 @@ class App extends Component {
   }
   checkIfLandscape = () => {
     if ((window.innerWidth - 100) > window.innerHeight) {
-      if(this.state.isLandscape !== 90){
+      if (this.state.isLandscape !== 90) {
         window.location.href = '/';
         this.setState({
           isLandscape: 90
@@ -36,8 +36,11 @@ class App extends Component {
           ? <Gamerouter />
           : <h2>rotate the screen (landscape) or make the width of the screen larger than the height to begain
              <br />
-             <br />
-              If on phone add this to home screen for better experience (fullscreen)</h2>
+            <br />
+              If on phone add this to home screen for better experience (fullscreen)
+              <br />
+            <br />
+            If on PC f11 for fullscreen</h2>
         }
       </div>
     )

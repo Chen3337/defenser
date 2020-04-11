@@ -22,7 +22,7 @@ class Game extends Component {
     }
     update = () => {
         if (this.state.context !== null) {
-            this.state.context.clearRect(0, 0, this.state.screenWidth, this.state.screenHeight);
+            this.state.context.clearRect(0,0, this.state.screenWidth, this.state.screenHeight);
             if (this.state.monsterone.length !== 0) {
                 for (var i = 0; i < this.state.monsterone.length; i++) {
                     this.state.monsterone[i].render(this.state);

@@ -10,12 +10,19 @@ class Monsterone {
             width : 130,
             height : 180,
         }
+        this.attsprite = {
+            startX : 0,
+            startY : 845,
+            width : 130,
+            height : 165,
+        }
         this.sizeX = this.ScreenX * 0.1;
         this.sizeY = this.ScreenY * 0.25;
         this.mode = 'attack';
         this.spriteNumber = 0;
         this.cycle = 1;
         this.speed = this.ScreenX * 0.0005;
+        this.attacked = false;
     }
     mode(mode) {
         this.mode = mode;
@@ -61,15 +68,20 @@ class Monsterone {
                 this.sprite = {startX : 480, startY : 650, width : 140, height : 190}
             }
             else if(this.spriteNumber === 4){
+                this.attacked = true;
                 this.sprite = {startX : 660, startY : 620, width : 190, height : 220}
+                this.attsprite = {startX : 0, startY : 845, width : 130, height : 165}
             }
             else if(this.spriteNumber === 5){
                 this.sprite = {startX : 890, startY : 620, width : 195, height : 220}
+                this.attsprite = {startX : 160, startY : 845, width : 130, height : 165}
             }
             else if(this.spriteNumber === 6){
                 this.sprite = {startX : 1135, startY : 620, width : 195, height : 220}
+                this.attsprite = {startX : 330, startY : 845, width : 130, height : 165}
             }
             else if(this.spriteNumber === 7){
+                this.attacked = false;
                 this.sprite = {startX : 1380, startY : 620, width : 195, height : 220}
             }
             else if(this.spriteNumber === 8){
@@ -100,8 +112,12 @@ class Monsterone {
         context.scale(-1, 1);
         // drawimage(image, image startx, starty, widthsize, heightsize
         // , canvas x location, canvas y location, canvas image size x, canvas image size y)
+        if(this.attacked){
+            context.drawImage(state.monsteroneImage, this.attsprite.startX, this.attsprite.startY, this.attsprite.width, this.attsprite.height, 0 - this.sizeX, (0 - this.sizeY), this.sizeX, this.sizeY);
+        }
         context.drawImage(state.monsteroneImage, this.sprite.startX, this.sprite.startY, this.sprite.width, this.sprite.height, 0, (0 - this.sizeY), this.sizeX, this.sizeY);
-        context.strokeRect( 0, (0 - this.sizeY), this.sizeX, this.sizeY);
+        // context.strokeRect( 0, (0 - this.sizeY), this.sizeX, this.sizeY);
+        // context.strokeRect( 0 - this.sizeX, (0 - this.sizeY), this.sizeX, this.sizeY);
         context.restore();
     }
 }

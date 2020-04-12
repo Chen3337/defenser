@@ -2,7 +2,7 @@ class Monsterone {
     constructor() {
         this.ScreenX = window.innerWidth;
         this.ScreenY = window.innerHeight;
-        this.x = 200;
+        this.x = this.ScreenX * 0.1;
         this.y = this.ScreenY * 0.8;
         this.sprite = {
             startX : 0,
@@ -23,20 +23,39 @@ class Monsterone {
         this.cycle = 1;
         this.speed = this.ScreenX * 0.0005;
         this.attacked = false;
+        this.hp = 100;
     }
-    mode(mode) {
+    changemode(mode) {
         this.mode = mode;
+        this.cycle = 1;
+        this.spriteNumber = 0;
     }
     move(){
         this.x += this.speed;
     }
     spriteChange() {
-        if(this.mode === 'stay'){
-            this.sprite = {
-                startX : 0,
-                startY : 0,
-                width : 130,
-                height : 180,
+        if(this.mode === 'dead'){
+            if(this.spriteNumber === 0 ||this.spriteNumber ===  1 ||this.spriteNumber ===  2 ){
+                this.sprite = {
+                    startX : 0  + (this.spriteNumber * 132),
+                    startY : 1045,
+                    width : 130,
+                    height : 250,
+                }
+            }
+            else if(this.spriteNumber === 3 ||this.spriteNumber ===  4){
+                this.sprite = {
+                    startX : 0  + (this.spriteNumber * 138.5),
+                    startY : 1045,
+                    width : 130,
+                    height : 250,
+                }
+            }
+            if(this.cycle % 10 === 0){
+                this.spriteNumber += 1;
+            }
+            if(this.spriteNumber > 4){
+                this.spriteNumber = 5;
             }
         }
         else if(this.mode === 'move'){
@@ -94,16 +113,24 @@ class Monsterone {
                 this.spriteNumber += 1;
             }
             if(this.spriteNumber > 9){
-                this.mode = 'move';
+                this.changemode('stay');
             }
         }
-        
+        else if( this.mode === 'stay'){
+            this.sprite = {
+                startX : 0,
+                startY : 0,
+                width : 130,
+                height : 180,
+            }
+            this.changemode('attack');
+        }
     }
     render(state) {
         this.spriteChange();
         this.cycle += 1;
         if(this.cycle > 60){
-            this.cycle = 0;
+            this.cycle = 1;
         }
         
         const context = state.context;

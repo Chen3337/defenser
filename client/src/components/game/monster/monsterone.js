@@ -2,7 +2,7 @@ class Monsterone {
     constructor() {
         this.ScreenX = window.innerWidth;
         this.ScreenY = window.innerHeight;
-        this.x = this.ScreenX * 0.1;
+        this.x = this.ScreenX * 0.94;
         this.y = this.ScreenY * 0.8;
         this.sprite = {
             startX : 0,
@@ -16,9 +16,9 @@ class Monsterone {
             width : 130,
             height : 165,
         }
-        this.sizeX = this.ScreenX * 0.1;
-        this.sizeY = this.ScreenY * 0.25;
-        this.mode = 'attack';
+        this.sizeX = this.ScreenX * 0.06;
+        this.sizeY = this.ScreenY * 0.15;
+        this.mode = 'move';
         this.spriteNumber = 0;
         this.cycle = 1;
         this.speed = this.ScreenX * 0.0005;
@@ -31,7 +31,7 @@ class Monsterone {
         this.spriteNumber = 0;
     }
     move(){
-        this.x += this.speed;
+        this.x -= this.speed;
     }
     spriteChange() {
         if(this.mode === 'dead'){
@@ -136,7 +136,7 @@ class Monsterone {
         const context = state.context;
         context.save()
         context.translate(this.x, this.y);
-        context.scale(-1, 1);
+        context.scale(1, 1);
         // drawimage(image, image startx, starty, widthsize, heightsize
         // , canvas x location, canvas y location, canvas image size x, canvas image size y)
         if(this.attacked){

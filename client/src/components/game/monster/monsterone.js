@@ -24,11 +24,23 @@ class Monsterone {
         this.speed = this.ScreenX * 0.0005;
         this.attacked = false;
         this.hp = 100;
+        this.damage = [10, 15];
+        this.deletecharacter = false;
+        this.hit = false;
+    }
+    attackedDamage(damage){
+        this.hp -= damage;
+    }
+    finishHit(){
+        this.hit = false;
     }
     changemode(mode) {
-        this.mode = mode;
-        this.cycle = 1;
-        this.spriteNumber = 0;
+        if (this.mode !== 'dead') {
+            this.mode = mode;
+            this.attacked = false;
+            this.cycle = 1;
+            this.spriteNumber = 0;
+        }
     }
     move(){
         this.x -= this.speed;
@@ -54,8 +66,8 @@ class Monsterone {
             if(this.cycle % 10 === 0){
                 this.spriteNumber += 1;
             }
-            if(this.spriteNumber > 4){
-                this.spriteNumber = 5;
+            if(this.spriteNumber > 5){
+                this.deletecharacter = true;
             }
         }
         else if(this.mode === 'move'){
@@ -88,6 +100,9 @@ class Monsterone {
             }
             else if(this.spriteNumber === 4){
                 this.attacked = true;
+                if(this.cycle === 26){
+                    this.hit = true;
+                }
                 this.sprite = {startX : 660, startY : 620, width : 190, height : 220}
                 this.attsprite = {startX : 0, startY : 845, width : 130, height : 165}
             }
@@ -109,11 +124,11 @@ class Monsterone {
             else if(this.spriteNumber === 9){
                 this.sprite = {startX : 0, startY : 650, width : 140, height : 190}
             }
-            if(this.cycle % 7 === 0){
+            if(this.cycle % 6 === 0){
                 this.spriteNumber += 1;
             }
             if(this.spriteNumber > 9){
-                this.changemode('stay');
+                this.spriteNumber = 0;
             }
         }
         else if( this.mode === 'stay'){
@@ -123,7 +138,6 @@ class Monsterone {
                 width : 130,
                 height : 180,
             }
-            this.changemode('attack');
         }
     }
     render(state) {
@@ -132,7 +146,10 @@ class Monsterone {
         if(this.cycle > 60){
             this.cycle = 1;
         }
-        
+        if(this.hp < 1){
+            this.changemode('dead');
+        }
+
         const context = state.context;
         context.save()
         context.translate(this.x, this.y);

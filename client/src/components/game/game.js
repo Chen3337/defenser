@@ -51,7 +51,7 @@ class Game extends Component {
         const context = this.canvas.current.getContext('2d');
         const monsteroneTimer = setInterval(() => {
             this.addMonster();
-        }, 5000);
+        }, 8000);
         this.setState({
             context: context,
         })
@@ -70,14 +70,66 @@ class Game extends Component {
                         this.state.myCharacters[0].changemode('attack');
                     }
                 }
+                else if(distance > 0){
+                    if(this.state.theMonsters[0].mode !== 'move'){
+                        this.state.theMonsters[0].changemode('move');
+                    }
+                    if(this.state.myCharacters[0].mode !== 'move'){
+                        this.state.myCharacters[0].changemode('move');
+                    }
+                }
+                if(this.state.theMonsters[0].hit){
+                    this.state.myCharacters[0].attackedDamage(this.state.theMonsters[0].damage[0]);
+                    this.state.theMonsters[0].finishHit();
+                }
+                if(this.state.myCharacters[0].hit){
+                    this.state.theMonsters[0].attackedDamage(this.state.myCharacters[0].damage[0]);
+                    this.state.myCharacters[0].finishHit();
+                }
+                if(this.state.theMonsters[0].deletecharacter){
+                    this.deleteMonster();
+                }
+                if(this.state.myCharacters[0].deletecharacter){
+                    this.deleteCharacter();
+                }
+            }
+            if(this.state.theMonsters.length !== 0 && this.state.myCharacters.length === 0){
+                if(this.state.theMonsters[0].mode !== 'move'){
+                    this.state.theMonsters[0].changemode('move');
+                }
+            }
+            if(this.state.theMonsters.length === 0 && this.state.myCharacters.length !== 0){
+                if(this.state.myCharacters[0].mode !== 'move'){
+                    this.state.myCharacters[0].changemode('move');
+                }
             }
             if (this.state.theMonsters.length !== 0) {
                 for (var i = 0; i < this.state.theMonsters.length; i++) {
+                    if(i > 0){
+                        var h = i - 1;
+                        var monsterDis = this.state.theMonsters[i].x - this.state.theMonsters[h].x;
+                        if(monsterDis < this.state.distance){
+                            this.state.theMonsters[i].changemode('stay');
+                        }
+                        else if(this.state.theMonsters[i].mode !== 'move'){
+                            this.state.theMonsters[i].changemode('move');
+                        }
+                    }
                     this.state.theMonsters[i].render(this.state);
                 }
             }
             if (this.state.myCharacters.length !== 0) {
                 for (var j = 0; j < this.state.myCharacters.length; j++) {
+                    if(j > 0){
+                        var k = j - 1;
+                        var characterDis = this.state.myCharacters[k].x - this.state.myCharacters[j].x;
+                        if(characterDis < this.state.distance){
+                            this.state.myCharacters[j].changemode('stay');
+                        }
+                        else if(this.state.myCharacters[j].mode !== 'move'){
+                            this.state.myCharacters[j].changemode('move');
+                        }
+                    }
                     this.state.myCharacters[j].render(this.state);
                 }
             }
@@ -98,7 +150,11 @@ class Game extends Component {
         })
     }
     deleteCharacter = () => {
-
+        var newCharacterList = this.state.myCharacters.slice();
+        newCharacterList.splice(0, 1);
+        this.setState({
+            myCharacters: newCharacterList,
+        });
     }
     addMonster = () => {
         var monster = new Monsterone();
@@ -108,7 +164,11 @@ class Game extends Component {
         })
     }
     deleteMonster = () => {
-
+        var newMonsterList = this.state.theMonsters.slice();
+        newMonsterList.splice(0, 1);
+        this.setState({
+            theMonsters: newMonsterList,
+        });
     }
     render() {
         return (

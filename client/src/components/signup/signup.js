@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import MainImage from '../../image/main.jpg';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Axios from 'axios';
 class Signup extends Component {
+    constructor(props) {
+        super(props);
+        this.loadingPage = document.getElementById('loading');
+    }
     state = {
         username: '',
         password: '',
         confirmpassword: '',
         errors: '',
+    }
+    componentDidMount() {
+        this.image = new Image();
+        this.image.src = MainImage;
+        this.image.onload = this.loading;
+    }
+    componentWillUnmount() {
+        this.loadingPage.style.zIndex = 1000;
+    }
+    loading = () => {
+        this.loadingPage.style.zIndex = -1000;
     }
     handleChange = (e) => {
         this.setState({
@@ -15,33 +30,35 @@ class Signup extends Component {
         })
     }
     signupfunc = () => {
-        if(this.state.username.length < 3){
+        if (this.state.username.length < 3) {
             this.setState({
                 errors: 'please enter a username (more than 3 characters)'
             })
         }
-        else if(this.state.password < 3){
+        else if (this.state.password < 3) {
             this.setState({
                 errors: 'please enter password (more than 3 characters)'
             })
         }
-        else if(this.state.password !== this.state.confirmpassword){
+        else if (this.state.password !== this.state.confirmpassword) {
             this.setState({
                 errors: 'password do not match'
             })
         }
-        else{
+        else {
+            this.loadingPage.style.zIndex = 1000;
             var data = {
                 username: this.state.username,
                 password: this.state.password
             }
             Axios.post('/api/', data).then((results) => {
-                if(results.data.error){
+                this.loading();
+                if (results.data.error) {
                     this.setState({
                         errors: results.data.error
                     })
                 }
-                else if(results.data.username){
+                else if (results.data.username) {
                     this.setState({
                         errors: 'successful'
                     })

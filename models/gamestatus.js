@@ -1,24 +1,37 @@
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
-// const VocabListSchema = new Schema({ 
-// 	user: { 
-// 		type: String, 
-// 		required: [true, 'The text field is required'] 
-// 	},
-// 	name: { 
-// 		type: String, 
-// 		required: [true, 'The text field is required'] 
-// 	},
-// 	vocab: [{
-// 		word: {
-// 			type: String,
-// 		},
-// 		definition:{
-// 			type: String,
-// 		}
-// 	}]
-// });
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const GameStatusSchema = new Schema({ 
+	user: { 
+		type: String, 
+		required: [true, 'The text field is required'],
+		unique: true
+	},
+	characterone: {
+		type: Number,
+		default: 1
+	},
+	charactertwo: {
+		type: Number,
+		default: 1
+	},
+	characterthree: {
+		type: Number,
+		default: 1
+	},
+	characterfour: {
+		type: Number,
+		default: 1
+	},
+	castle: {
+		type: Number,
+		default: 1
+	},
+	money: {
+		type: Number,
+		default: 5
+	}
+});
 
-// const VocabList = mongoose.model('VocabList', VocabListSchema);
+const GameStatus = mongoose.model('GameStatus', GameStatusSchema);
 
-// module.exports = VocabList;
+module.exports = GameStatus;

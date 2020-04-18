@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import MainImage from '../../image/main.jpg';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Axios from 'axios';
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.loadingPage = document.getElementById('loading');
+    }
     state = {
         username: '',
         password: '',
         errors: '',
+    }
+    componentDidMount() {
+        this.image = new Image();
+        this.image.src = MainImage;
+        this.image.onload = this.loading;
+    }
+    componentWillUnmount() {
+        this.loadingPage.style.zIndex = 1000;
+    }
+    loading = () => {
+        this.loadingPage.style.zIndex = -1000;
     }
     handleChange = (e) => {
         this.setState({
@@ -14,26 +29,29 @@ class Login extends Component {
         })
     }
     loginfunc = () => {
-        if(this.state.username.length < 3){
+        if (this.state.username.length < 3) {
             this.setState({
                 errors: 'please enter a username'
             })
         }
-        else if(this.state.password < 3){
+        else if (this.state.password < 3) {
             this.setState({
                 errors: 'please enter password'
             })
         }
         else {
+
+            this.loadingPage.style.zIndex = 1000;
             var data = {
                 username: this.state.username,
                 password: this.state.password
             }
             Axios.post('/api/login', data).then((results) => {
-                if(results.data.username){
+                if (results.data.username) {
                     window.location.href = '/homepage';
                 }
-            }).catch(()=> {
+            }).catch(() => {
+                this.loading();
                 this.setState({
                     errors: 'wrong username or password'
                 })

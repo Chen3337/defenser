@@ -5,10 +5,6 @@ import Signup from './signup/signup';
 import Homepage from './homepage/homepage';
 import Game from './game/game';
 class Gamerouter extends Component {
-
-
-
-
     render() {
         return (
             <Router>

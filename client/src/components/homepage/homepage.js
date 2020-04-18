@@ -2,15 +2,26 @@ import React, { Component } from 'react';
 import MainImage from '../../image/main.jpg';
 import {Link} from "react-router-dom";
 class Homepage extends Component {
+    constructor(props) {
+        super(props);
+        this.loadingPage = document.getElementById('loading');
+    }
     state = {
         username: '',
         password: '',
         confirmpassword: '',
         errors: '',
     }
-
     componentDidMount() {
-        
+        this.image = new Image();
+        this.image.src = MainImage;
+        this.image.onload = this.loading;
+    }
+    componentWillUnmount(){
+        this.loadingPage.style.zIndex = 1000;
+    }
+    loading = () => {
+        this.loadingPage.style.zIndex = -1000;
     }
     render() {
         return (

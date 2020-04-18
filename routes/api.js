@@ -2,6 +2,24 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/passport/user');
 const passport = require('../models/passport/passportuser');
+const Gamestatus = require('../models/gamestatus');
+
+router.get('/new', (req, res) => {
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // add a new user route
 router.post('/', (req, res) => {
@@ -22,7 +40,13 @@ router.post('/', (req, res) => {
             })
             newUser.save((err, savedUser) => {
                 if (err) return res.json(err)
-                res.json(savedUser)
+                var newPlayer = {
+                    user: username,
+                    vocab: []
+                }
+                Gamestatus.create(newPlayer)
+                    .then(() => res.json(savedUser))
+                    .catch(console.log("Error !!!!"));
             })
         }
     })

@@ -36,45 +36,60 @@ class Homepage extends Component {
             <div style={{ backgroundImage: `url(${MainImage})`, width: "100%", height: "100vh", backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
                 <div style={{ textAlign: "center", padding: '20px', position: 'absolute', left: '30%', top: '50%', transform: 'translate(-50%, -50%)', width: '35%', height: "80vh", backgroundColor: "#ebde34", borderRadius: '25px', opacity: '.9' }}>
                     <b>game character status</b>
-                    <div style={{ width: '80%', height: '20%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
+                    <div style={{ width: '95%', height: '20%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
                         <img style={{ width: "20%", height: '95%', border: '1px solid black', float: 'left' }} src={CharacteroneTool} alt="charactoerone" />
                         <div style={{float: 'left', width: '50%', height:'95%', paddingLeft:'10px'}}>
                             <b>level: 1 <br/>upgrade: 20</b>
                         </div>
-                        <button style={{backgroundColor: '#03fce3', margin:'10px'}}>Upgrade</button>
+                        <div style={{float: 'left', width: '25%', height:'95%', margin:'auto'}}>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        </div>
                     </div>
-                    <div style={{ width: '80%', height: '20%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
+                    <div style={{ width: '95%', height: '20%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
                         <img style={{ width: "20%", height: '95%', border: '1px solid black', float: 'left' }} src={CharacteroneTool} alt="charactoerone" />
                         <div style={{float: 'left', width: '50%', height:'95%', paddingLeft:'10px'}}>
                             <b>level: 1 <br/>upgrade: 20</b>
                         </div>
-                        <button style={{backgroundColor: '#03fce3', margin:'10px'}}>Upgrade</button>
+                        <div style={{float: 'left', width: '25%', height:'95%', margin:'auto'}}>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        </div>
                     </div>
-                    <div style={{ width: '80%', height: '20%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
+                    <div style={{ width: '95%', height: '20%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
                         <img style={{ width: "20%", height: '95%', border: '1px solid black', float: 'left' }} src={CharacteroneTool} alt="charactoerone" />
                         <div style={{float: 'left', width: '50%', height:'95%', paddingLeft:'10px'}}>
                             <b>level: 1 <br/>upgrade: 20</b>
                         </div>
-                        <button style={{backgroundColor: '#03fce3', margin:'10px'}}>Upgrade</button>
+                        <div style={{float: 'left', width: '25%', height:'95%', margin:'auto'}}>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        </div>
                     </div>
-                    <div style={{ width: '80%', height: '20%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
+                    <div style={{ width: '95%', height: '20%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
                         <img style={{ width: "20%", height: '95%', border: '1px solid black', float: 'left' }} src={CharacteroneTool} alt="charactoerone" />
                         <div style={{float: 'left', width: '50%', height:'95%', paddingLeft:'10px'}}>
                             <b>level: 1 <br/>upgrade: 20</b>
                         </div>
-                        <button style={{backgroundColor: '#03fce3', margin:'10px'}}>Upgrade</button>
+                        <div style={{float: 'left', width: '25%', height:'95%', margin:'auto'}}>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        </div>
                     </div>
 
                 </div>
                 {/* second one */}
                 <div style={{ textAlign: "center", padding: '20px', position: 'absolute', left: '70%', top: '50%', transform: 'translate(-50%, -50%)', width: '35%', height: "20vh", backgroundColor: "#ebde34", borderRadius: '25px', opacity: '.9' }}>
                     <b>castle status</b>
-                    <div style={{ width: '80%', height: '90%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
+                    <div style={{ width: '95%', height: '90%', margin:'auto', backgroundColor: 'yellow', marginBottom:'5px'}}>
                         <img style={{ width: "20%", height: '95%', border: '1px solid black', float: 'left' }} src={CharacteroneTool} alt="charactoerone" />
                         <div style={{float: 'left', width: '50%', height:'95%', paddingLeft:'10px'}}>
                             <b>level: 1 <br/>upgrade: 20</b>
                         </div>
-                        <button style={{backgroundColor: '#03fce3', margin:'10px'}}>Upgrade</button>
+                        <div style={{float: 'left', width: '25%', height:'95%', margin:'auto'}}>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        <button style={{backgroundColor: '#03fce3', width:'95%'}}>Upgrade</button>
+                        </div>
                     </div>
                 </div>
 

@@ -28,7 +28,11 @@ const GameStatusSchema = new Schema({
 	},
 	money: {
 		type: Number,
-		default: 5
+		default: 20
+	},
+	level: {
+		type: Number,
+		default: 1
 	}
 });
 

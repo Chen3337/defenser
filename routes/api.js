@@ -4,8 +4,15 @@ const User = require('../models/passport/user');
 const passport = require('../models/passport/passportuser');
 const Gamestatus = require('../models/gamestatus');
 
-router.get('/new', (req, res) => {
-    
+router.get('/gamestatus', (req, res) => {
+    if (req.user) {
+        Gamestatus.findOne({ user: req.user.username }, (err, results) => {
+            res.json(results);
+        })
+    }
+    else {
+        res.json('no user');
+    }
 });
 
 

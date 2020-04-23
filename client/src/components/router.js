@@ -4,6 +4,7 @@ import Login from './login/login';
 import Signup from './signup/signup';
 import Homepage from './homepage/homepage';
 import Game from './game/game';
+import Level from './level/level';
 class Gamerouter extends Component {
     render() {
         return (
@@ -12,7 +13,9 @@ class Gamerouter extends Component {
                     <Route exact path="/" component={Login} />
                     <Route exact path="/signup" component={Signup} />
                     <Route exact path="/homepage" component={Homepage} />
-                    <Route exact path='/game' component={Game} />
+                    <Route exact path="/level" component={Level} />
+                    <Route path='/game/:level' component={Game} />
+                    <Route component={Login}/>
                 </Switch>
             </Router>
         )

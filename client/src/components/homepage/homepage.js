@@ -49,7 +49,7 @@ class Homepage extends Component {
         this.loadingPage.style.zIndex = 1000;
     }
     loading = () => {
-        if (this.state.gameStatus && this.state.mainImage && this.state.characterOneImage) {
+        if (this.state.gameStatus && this.state.mainImage && this.state.characterOneImage && this.state.characterFourImage) {
             this.loadingPage.style.zIndex = -1000;
         }
     }
@@ -156,7 +156,7 @@ class Homepage extends Component {
                 </div>
 
                 <div style={{ textAlign: "center", padding: '20px', position: 'absolute', left: '75%', top: '80%', transform: 'translate(-50%, -50%)', width: '35%', height: "5vh", backgroundColor: "#ebde34", borderRadius: '25px', opacity: '.9' }}>
-                    <b><Link to='/game'>START</Link></b>
+                    <b><Link to='/level'>START</Link></b>
                 </div>
                 <div style={{ textAlign: "center", padding: '20px', position: 'absolute', left: '75%', top: '20%', transform: 'translate(-50%, -50%)', width: '35%', height: "5vh", backgroundColor: "#ebde34", borderRadius: '25px', opacity: '.9' }}>
                     Money: {this.state.gameStatus ? this.state.gameStatus.money : "unknown"}

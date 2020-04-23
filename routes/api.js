@@ -4,6 +4,12 @@ const User = require('../models/passport/user');
 const passport = require('../models/passport/passportuser');
 const Gamestatus = require('../models/gamestatus');
 
+var characteroneMoney = [20, 40, 80, 160];
+var charactertwoMoney = [30, 60, 120, 240];
+var characterthreeMoney = [40, 80, 160, 320];
+var characterfourMoney = [50, 100, 200, 400];
+var castleMoney = [100,200,300,500];
+
 router.get('/gamestatus', (req, res) => {
     if (req.user) {
         Gamestatus.findOne({ user: req.user.username }, (err, results) => {
@@ -13,8 +19,51 @@ router.get('/gamestatus', (req, res) => {
     else {
         res.json('no user');
     }
-});
+})
+router.put('/upgrade/:character', (req, res) => {
+    Gamestatus.findOne({ user: req.user.username }, (err, results) => {
+        var updatedInfo = results;
+        var level; var moneyneed;
+        if (req.params.character === 'characterone') {
+            level = results.characterone;
+            moneyneed = characteroneMoney[(level - 1)];
+            updatedInfo.characterone += 1;
+        }
+        else if(req.params.character === 'charactertwo') {
+            level = results.charactertwo;
+            moneyneed = charactertwoMoney[(level - 1)];
+            updatedInfo.charactertwo += 1;
+        }
+        else if(req.params.character === 'characterthree') {
+            level = results.characterthree;
+            moneyneed = characterthreeMoney[(level - 1)];
+            updatedInfo.characterthree += 1;
+        }
+        else if(req.params.character === 'characterfour') {
+            level = results.characterfour;
+            moneyneed = characterfourMoney[(level - 1)];
+            updatedInfo.characterfour += 1;
+        }
+        else if(req.params.character === 'castle') {
+            level = results.castle;
+            moneyneed = castleMoney[(level - 1)];
+            updatedInfo.castle += 1;
+        }
+        updatedInfo.money -= moneyneed;
 
+        if (updatedInfo.money < 0) {
+            res.json('not enough money');
+        }
+        else if (level > 4) {
+            res.json('max level');
+        }
+        else {
+            Gamestatus.updateOne({ user: req.user.username }, updatedInfo, (err, endResults) => {
+                res.json(endResults);
+            })
+        }
+    })
+})
 
 
 

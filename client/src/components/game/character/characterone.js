@@ -18,10 +18,10 @@ class Characterone {
         this.deletecharacter = false;
         this.hit = false;
     }
-    attackedDamage(damage){
+    attackedDamage(damage) {
         this.hp -= damage;
     }
-    finishHit(){
+    finishHit() {
         this.hit = false;
     }
     changemode(mode) {
@@ -76,7 +76,7 @@ class Characterone {
             }
             else if (this.spriteNumber === 5) {
                 this.attacked = true;
-                if(this.cycle === 31){
+                if (this.cycle === 31) {
                     this.hit = true;
                 }
                 this.sprite = { startX: 385, startY: 176, width: 58, height: 80 }
@@ -112,7 +112,7 @@ class Characterone {
         if (this.cycle > 60) {
             this.cycle = 1;
         }
-        if(this.hp < 1){
+        if (this.hp < 1) {
             this.changemode('dead');
         }
 
@@ -125,7 +125,6 @@ class Characterone {
         if (this.attacked) {
             context.drawImage(state.characteroneImage, this.attsprite.startX, this.attsprite.startY, this.attsprite.width, this.attsprite.height, 0 - this.sizeX, (0 - this.sizeY), this.sizeX, this.sizeY);
         }
-
         context.drawImage(state.characteroneImage, this.sprite.startX, this.sprite.startY, this.sprite.width, this.sprite.height, 0, (0 - this.sizeY), this.sizeX, this.sizeY);
         context.restore();
     }

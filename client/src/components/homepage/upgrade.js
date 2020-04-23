@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Upgrade(props) {
-    console.log(Object.entries(props.Info[1]));
     return (
         <div>
             <div style={{ width: '100%', height: "100vh", backgroundColor: 'white', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', opacity: '0.5' }} />
@@ -48,7 +47,7 @@ function Upgrade(props) {
                 }
                 {props.Info[2] ?
                     <div style={{ width: '100%', padding: '10px', float: 'left'}}>
-                        <button >Level up: {props.Info[1].money}</button>
+                        <button style={{backgroundColor: '#04c91b'}} onClick={() => props.Upgrade()} >Level up: {props.Info[1].money}</button>
                     </div>
                     :
                     <b>Reach max level</b>

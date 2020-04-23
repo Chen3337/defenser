@@ -14,7 +14,7 @@ import Monsterfoursprite from '../../image/monsterfour.png';
 import Characteronesprite from '../../image/characterone.png';
 import Charactertwosprite from '../../image/charactertwo.png';
 import Characterthreesprite from '../../image/characterthree.png';
-// import Characterfoursprite from '../../image/characterfour.png';
+import Characterfoursprite from '../../image/characterfour.png';
 // charactor tool image
 import CharacteroneTool from '../../image/characteronetool.PNG';
 class Game extends Component {
@@ -48,6 +48,7 @@ class Game extends Component {
     }
 
     componentDidMount() {
+        document.getElementById('loading').style.zIndex = -1000;
         const context = this.canvas.current.getContext('2d');
         const monsteroneTimer = setInterval(() => {
             this.addMonster();
@@ -181,7 +182,7 @@ class Game extends Component {
                     <img name='characteroneImage' ref={this.characteroneImage} src={Characteronesprite} alt="sprite" onLoad={(e) => { this.testing(e, this.characteroneImage.current) }} />
                     <img name='charactertwoImage' ref={this.charactertwoImage} src={Charactertwosprite} alt="sprite" onLoad={(e) => { this.testing(e, this.charactertwoImage.current) }} />
                     <img name='characterthreeImage' ref={this.characterthreeImage} src={Characterthreesprite} alt="sprite" onLoad={(e) => { this.testing(e, this.characterthreeImage.current) }} />
-                    {/* <img name='characterfourImage' ref={this.characterfourImage} src={Characterfoursprite} alt="sprite" onLoad={(e) => { this.testing(e, this.characterfourImage.current) }} /> */}
+                    <img name='characterfourImage' ref={this.characterfourImage} src={Characterfoursprite} alt="sprite" onLoad={(e) => { this.testing(e, this.characterfourImage.current) }} />
                 </div>
                 <div style={{ width: "100%", height: '15vh', position: "fixed", top: '10px', left: '10px', zIndex: "10" }}>
                     <img onClick={() => this.addCharacter()} style={{ width: "8%", height: '10vh', backgroundColor: 'white', border: '2px solid black' }} src={CharacteroneTool} alt="charactoerone" />

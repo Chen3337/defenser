@@ -66,13 +66,9 @@ class Level extends Component {
                         :
                         <div></div>
                     }
-
-
-
-
-
-
-
+                    <div style={{ width: '100%', float: 'left', marginTop: '10px' }}>
+                        <b><Link to='/homepage' style={{ textDecoration: 'none' }}>back</Link></b>
+                    </div>
                 </div>
             </div>
         )

@@ -98,7 +98,7 @@ class Homepage extends Component {
         return (
             <div style={{ backgroundImage: `url(${MainImage})`, width: "100%", height: "100vh", backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
                 <div style={{ textAlign: "center", padding: '20px', position: 'absolute', left: '25%', top: '50%', transform: 'translate(-50%, -50%)', width: '35%', height: "80vh", backgroundColor: "#ebde34", borderRadius: '25px', opacity: '.9' }}>
-                    <b>game character status</b>
+                    <h3 style={{margin:'0px'}}>Game Character Status</h3>
 
                     <div style={{ width: '95%', height: '20%', margin: 'auto', backgroundColor: 'yellow', marginBottom: '5px' }}>
                         <img onLoad={() => this.Imageload('characterOneImage')} style={{ width: "20%", height: '95%', border: '1px solid black', float: 'left' }} src={CharacteroneTool} alt="characterone" />
@@ -143,7 +143,7 @@ class Homepage extends Component {
                 </div>
                 {/* second one */}
                 <div style={{ textAlign: "center", padding: '20px', position: 'absolute', left: '75%', top: '50%', transform: 'translate(-50%, -50%)', width: '35%', height: "20vh", backgroundColor: "#ebde34", borderRadius: '25px', opacity: '0.9' }}>
-                    <b>castle status</b>
+                    <h3 style={{margin:'0px'}}>Castle Status</h3>
                     <div style={{ width: '95%', height: '90%', margin: 'auto', backgroundColor: 'yellow', marginBottom: '5px' }}>
                         <img style={{ width: "20%", height: '95%', border: '1px solid black', float: 'left', backgroundColor:'white'}} src={CastleTool} alt="charactoerone" />
                         <div style={{ float: 'left', width: '50%', height: '95%', paddingLeft: '10px' }}>
@@ -155,11 +155,11 @@ class Homepage extends Component {
                     </div>
                 </div>
 
-                <div style={{ textAlign: "center", padding: '20px', position: 'absolute', left: '75%', top: '80%', transform: 'translate(-50%, -50%)', width: '35%', height: "5vh", backgroundColor: "#ebde34", borderRadius: '25px', opacity: '.9' }}>
-                    <b><Link to='/level'>START</Link></b>
+                <div style={{ textAlign: "center", display: 'inline-block', position: 'absolute', left: '75%', top: '80%', transform: 'translate(-50%, -50%)', width: '35%', backgroundColor: "#ebde34", borderRadius: '25px', opacity: '.9' }}>
+                    <h2 style={{margin:'10px'}}><Link to='/level' style={{textDecoration: 'none'}}>START GAME</Link></h2>
                 </div>
-                <div style={{ textAlign: "center", padding: '20px', position: 'absolute', left: '75%', top: '20%', transform: 'translate(-50%, -50%)', width: '35%', height: "5vh", backgroundColor: "#ebde34", borderRadius: '25px', opacity: '.9' }}>
-                    Money: {this.state.gameStatus ? this.state.gameStatus.money : "unknown"}
+                <div style={{ textAlign: "center",display: 'inline-block',  position: 'absolute', left: '75%', top: '20%', transform: 'translate(-50%, -50%)', width: '35%', backgroundColor: "#ebde34", borderRadius: '25px', opacity: '.9' }}>
+                    <h2 style={{margin:'10px'}}>Money: {this.state.gameStatus ? this.state.gameStatus.money : "unknown"}</h2>
                 </div>
                 {this.state.upgrade ?
                     <UpgradePage Upgrade={this.upgradeChar} Close={this.closeUpgrade} Info={this.state.upgradeInfo} />

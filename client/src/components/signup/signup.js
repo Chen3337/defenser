@@ -88,7 +88,7 @@ class Signup extends Component {
                     <br></br>
                     <button style={{ width: '60%', backgroundColor: 'green', color: 'white', padding: '5px' }} onClick={() => this.signupfunc()}>Signup</button>
                     <br></br>
-                    <Link to="/">[Already have a account?]</Link>
+                    <Link to="/" style={{textDecoration: 'none', color:'blue'}}>[Already have a account?]</Link>
                 </div>
             </div>
         )

@@ -72,10 +72,9 @@ class Login extends Component {
                     <br></br>
                     <b style={{ color: 'red' }}>{this.state.errors}</b>
                     <br></br>
+                    <button style={{ width: '60%', backgroundColor: 'green', color: 'white', padding: '5px' }} onClick={() => this.loginfunc()}>Login</button>
                     <br></br>
-                    <button style={{ width: '60%', backgroundColor: 'green', color: 'white', padding: '5px' }} onClick={() => this.loginfunc()}>login</button>
-                    <br></br>
-                    <Link to="/signup">[create account here]</Link>
+                    <Link to="/signup" style={{textDecoration: 'none', color:'blue'}}>[create account here]</Link>
                 </div>
             </div>
         )

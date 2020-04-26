@@ -1,20 +1,20 @@
 class Characterone {
-    constructor() {
+    constructor(status) {
         this.ScreenX = window.innerWidth;
         this.ScreenY = window.innerHeight;
         this.x = this.ScreenX * 0.06;
         this.y = this.ScreenY * 0.8;
-        this.sprite = { startX: 0, startY: 10, width: 50, height: 80 };
-        this.attsprite = { startX: 0, startY: 650, width: 140, height: 190 };
+        this.sprite = { startX: 0, startY: 0, width: 55, height: 70 };
+        this.attsprite = { startX: 10, startY: 325, width: 60, height: 90 };
         this.sizeX = this.ScreenX * 0.06;
         this.sizeY = this.ScreenY * 0.15;
         this.mode = 'move';
         this.spriteNumber = 0;
         this.cycle = 1;
-        this.speed = this.ScreenX * 0.0005;
+        this.speed = this.ScreenX * (0.0001 * status.speed);
         this.attacked = false;
-        this.hp = 50;
-        this.damage = [15, 20];
+        this.hp = status.hp;
+        this.damage = status.damage;
         this.deletecharacter = false;
         this.hit = false;
     }
@@ -37,26 +37,36 @@ class Characterone {
     }
     spriteChange() {
         if (this.mode === 'dead') {
-            this.sprite = {
-                startX: 73 + (this.spriteNumber * 52),
-                startY: 625,
-                width: 49,
-                height: 80,
+            if (this.spriteNumber === 0) {
+                this.sprite = {
+                    startX: 0,
+                    startY: 695,
+                    width: 55,
+                    height: 70,
+                }
             }
-            if (this.cycle % 4 === 0) {
+            else if (this.spriteNumber > 0) {
+                this.sprite = {
+                    startX: 0 + (this.spriteNumber * 62),
+                    startY: 695,
+                    width: 55,
+                    height: 70,
+                };
+            }
+            if (this.cycle % 7 === 0) {
                 this.spriteNumber += 1;
             }
-            if (this.spriteNumber > 13) {
+            if (this.spriteNumber > 8) {
                 this.deletecharacter = true;
             }
         }
         else if (this.mode === 'move') {
             this.move();
             this.sprite = {
-                startX: 0 + (this.spriteNumber * 55),
-                startY: 90,
-                width: 50,
-                height: 80,
+                startX: 0 + (this.spriteNumber * 65),
+                startY: 105,
+                width: 56,
+                height: 70,
             }
             if (this.cycle % 15 === 0) {
                 this.spriteNumber += 1;
@@ -66,44 +76,68 @@ class Characterone {
             }
         }
         else if (this.mode === 'attack') {
-            if (this.spriteNumber < 5) {
+            if (this.spriteNumber === 0) {
                 this.sprite = {
-                    startX: 0 + (this.spriteNumber * 56),
-                    startY: 176,
-                    width: 52,
+                    startX: 0,
+                    startY: 425,
+                    width: 55,
                     height: 80,
                 }
             }
-            else if (this.spriteNumber === 5) {
+            else if (this.spriteNumber === 1) {
+                this.sprite = {
+                    startX: 65,
+                    startY: 430,
+                    width: 55,
+                    height: 75,
+                }
+            }
+            else if (this.spriteNumber === 2) {
                 this.attacked = true;
                 if (this.cycle === 31) {
                     this.hit = true;
                 }
-                this.sprite = { startX: 385, startY: 176, width: 58, height: 80 }
-                this.attsprite = { startX: 285, startY: 156, width: 90, height: 100 }
+                this.sprite = {
+                    startX: 160,
+                    startY: 250,
+                    width: 75,
+                    height: 75,
+                };
             }
-            else if (this.spriteNumber === 6) {
-                this.attsprite = { startX: 450, startY: 156, width: 90, height: 100 }
+            else if (this.spriteNumber === 3) {
+                this.sprite = {
+                    startX: 250,
+                    startY: 250,
+                    width: 80,
+                    height: 75,
+                };
             }
-            else if (this.spriteNumber === 7) {
-                this.attsprite = { startX: 624, startY: 156, width: 90, height: 100 }
-            }
-            else if (this.spriteNumber === 8) {
-                this.attsprite = { startX: 0, startY: 260, width: 90, height: 100 }
-            }
-            else if (this.spriteNumber === 9) {
+            else if (this.spriteNumber === 4) {
                 this.attacked = false;
-                this.sprite = { startX: 0, startY: 176, width: 52, height: 80 }
+                this.sprite = {
+                    startX: 345,
+                    startY: 250,
+                    width: 80,
+                    height: 75,
+                };
             }
-            if (this.cycle % 6 === 0) {
+            else if (this.spriteNumber === 5) {
+                this.sprite = {
+                    startX: 435,
+                    startY: 250,
+                    width: 80,
+                    height: 75,
+                };
+            }
+            if (this.cycle % 10 === 0) {
                 this.spriteNumber += 1;
             }
-            if (this.spriteNumber > 9) {
+            if (this.spriteNumber > 5) {
                 this.spriteNumber = 0;
             }
         }
         else if (this.mode === 'stay') {
-            this.sprite = { startX: 0, startY: 10, width: 50, height: 80 }
+            this.sprite = { startX: 0, startY: 0, width: 55, height: 70 }
         }
     }
     render(state) {
@@ -118,7 +152,7 @@ class Characterone {
 
         const context = state.context;
         context.save()
-        context.translate(this.x, this.y);
+        context.translate(this.x + 100, this.y);
         context.scale(-1, 1);
         // drawimage(image, image startx, starty, widthsize, heightsize
         // , canvas x location, canvas y location, canvas image size x, canvas image size y)

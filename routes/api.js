@@ -8,7 +8,7 @@ var characteroneMoney = [20, 40, 80, 160];
 var charactertwoMoney = [30, 60, 120, 240];
 var characterthreeMoney = [40, 80, 160, 320];
 var characterfourMoney = [50, 100, 200, 400];
-var castleMoney = [100,200,300,500];
+var castleMoney = [100, 200, 300, 500];
 
 router.get('/gamestatus', (req, res) => {
     if (req.user) {
@@ -29,22 +29,22 @@ router.put('/upgrade/:character', (req, res) => {
             moneyneed = characteroneMoney[(level - 1)];
             updatedInfo.characterone += 1;
         }
-        else if(req.params.character === 'charactertwo') {
+        else if (req.params.character === 'charactertwo') {
             level = results.charactertwo;
             moneyneed = charactertwoMoney[(level - 1)];
             updatedInfo.charactertwo += 1;
         }
-        else if(req.params.character === 'characterthree') {
+        else if (req.params.character === 'characterthree') {
             level = results.characterthree;
             moneyneed = characterthreeMoney[(level - 1)];
             updatedInfo.characterthree += 1;
         }
-        else if(req.params.character === 'characterfour') {
+        else if (req.params.character === 'characterfour') {
             level = results.characterfour;
             moneyneed = characterfourMoney[(level - 1)];
             updatedInfo.characterfour += 1;
         }
-        else if(req.params.character === 'castle') {
+        else if (req.params.character === 'castle') {
             level = results.castle;
             moneyneed = castleMoney[(level - 1)];
             updatedInfo.castle += 1;
@@ -64,7 +64,32 @@ router.put('/upgrade/:character', (req, res) => {
         }
     })
 })
-
+router.put('/upgrade/lose/:level', (req, res) => {
+    Gamestatus.findOne({ user: req.user.username }, (err, results) => {
+        var updatedInfo = results;
+        updatedInfo.money += 1;
+        Gamestatus.updateOne({ user: req.user.username }, updatedInfo, (err, endResults) => {
+            res.json(endResults);
+        })
+    })
+})
+router.put('/upgrade/win/:level', (req, res) => {
+    console.log('========================='+ ' ' + req.params.level);
+    Gamestatus.findOne({ user: req.user.username }, (err, results) => {
+        var updatedInfo = results;
+        var level = parseInt(req.params.level);
+        if(updatedInfo.level === level){
+            updatedInfo.money += 10;
+            updatedInfo.level += 1;
+        }
+        else if((updatedInfo.level - 1) === level){
+            updatedInfo.money += 5;
+        }
+        Gamestatus.updateOne({ user: req.user.username }, updatedInfo, (err, endResults) => {
+            res.json(endResults);
+        })
+    })
+})
 
 
 

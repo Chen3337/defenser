@@ -25,6 +25,7 @@ class Monsterone {
         this.attacked = false;
         this.hp = status.hp;
         this.damage = status.damage;
+        this.coin = status.summon;
         this.deletecharacter = false;
         this.hit = false;
     }

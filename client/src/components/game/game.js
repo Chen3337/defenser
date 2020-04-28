@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import GameOver from './gameover';
+import WinGame from './wingame';
 // this is the background images
 import MainImage from '../../image/game.jpg';
 import GroundImage from '../../image/ground.PNG';
@@ -69,6 +71,8 @@ class Game extends Component {
         gameover: false,
         wingame: false,
         monsterComing: 0,
+        thisGameLevel: parseInt(this.props.match.params.level),
+        updateTimer: null,
     }
 
     componentDidMount() {
@@ -94,7 +98,6 @@ class Game extends Component {
             if (this.state.castle && this.state.castleImage) {
                 this.state.castle.render(this.state);
                 if(this.state.castle.hp < 1){
-                    console.log('lose');
                     this.setState({
                         gameover: true,
                     })
@@ -126,14 +129,7 @@ class Game extends Component {
                     this.state.theMonsters[0].attackedDamage(this.state.myCharacters[0].damage);
                     this.state.myCharacters[0].finishHit();
                 }
-                if (this.state.theMonsters[0].deletecharacter) {
-                    this.deleteMonster();
-                }
-                if (this.state.myCharacters[0].deletecharacter) {
-                    this.deleteCharacter();
-                }
             }
-
             if (this.state.theMonsters.length !== 0 && this.state.myCharacters.length === 0) {
                 if (this.state.theMonsters[0].x < this.state.distance) {
                     if (this.state.theMonsters[0].mode !== 'attack') {
@@ -157,6 +153,10 @@ class Game extends Component {
                 }
             }
             if (this.state.theMonsters.length !== 0) {
+                if (this.state.theMonsters[0].deletecharacter) {
+                    this.state.castle.addCoin(this.state.theMonsters[0].coin * 0.5);
+                    this.deleteMonster();
+                }
                 for (var i = 0; i < this.state.theMonsters.length; i++) {
                     if (i > 0) {
                         var h = i - 1;
@@ -172,6 +172,9 @@ class Game extends Component {
                 }
             }
             if (this.state.myCharacters.length !== 0) {
+                if (this.state.myCharacters[0].deletecharacter) {
+                    this.deleteCharacter();
+                }
                 for (var j = 0; j < this.state.myCharacters.length; j++) {
                     if (j > 0) {
                         var k = j - 1;
@@ -187,13 +190,31 @@ class Game extends Component {
                 }
             }
             if(this.state.theMonsters.length === 0 && this.state.monsterComing === 0){
-                console.log("win");
                 this.setState({
                     wingame : true,
                 })
             }
         }
-        requestAnimationFrame(() => { this.update() });
+        if(this.state.gameover || this.state.wingame){
+            if(this.state.gameover){
+                this.gameoverCall();
+            }
+            if(this.state.wingame){
+                this.youwinCall();
+            }
+            clearInterval(this.state.updateTimer);
+        }
+        else{
+            requestAnimationFrame(() => { this.update() });
+        }
+    }
+    gameoverCall = () => {
+        Axios.put(`/api/upgrade/lose/${this.state.thisGameLevel}`)
+            .then((result) => {console.log('gameover')})
+    }
+    youwinCall = () => {
+        Axios.put(`/api/upgrade/win/${this.state.thisGameLevel}`)
+            .then((result) => {console.log('win')})
     }
     // when image onload add to state
     LoadImage = (e, image) => {
@@ -245,13 +266,14 @@ class Game extends Component {
         if (this.state.gameStatus && this.state.imageNumber === 16) {
             this.loadingPage.style.zIndex = -1000;
             this.thisLevelMonsters();
-            setInterval(() => {
+            var updateTimer = setInterval(() => {
                 var time = this.state.time + 1;
                 this.setState({ time: time })
             }, 1000);
             this.setState({
                 loading: false,
-                castle: new Castle(this.state.characterData.castle[this.state.gameStatus.castle - 1])
+                castle: new Castle(this.state.characterData.castle[this.state.gameStatus.castle - 1]),
+                updateTimer: updateTimer
             });
         }
     }
@@ -313,6 +335,9 @@ class Game extends Component {
             theMonsters: newMonsterList,
         });
     }
+    callstate = () => {
+        console.log(this.state);
+    }
     render() {
         return (
             <div>
@@ -343,7 +368,7 @@ class Game extends Component {
                     <div style={{ display: 'inline-block', float: 'left', width: "20%", height: '100%', textAlign: 'center', paddingTop: '5px' }}>
                         <h3 style={{ color: 'white' }}>Monster Left: {this.state.monsterComing}</h3>
                     </div>
-                    <div style={{ display: 'inline-block', float: 'left', width: "20%", height: '100%', textAlign: 'center', paddingTop: '5px' }}>
+                    <div onClick={() => this.callstate()} style={{ display: 'inline-block', float: 'left', width: "20%", height: '100%', textAlign: 'center', paddingTop: '5px' }}>
                         <h3 style={{ color: 'white' }}>Time: {this.state.time}</h3>
                     </div>
                 </div>
@@ -366,6 +391,8 @@ class Game extends Component {
                     <img name='characterfourImage' ref={this.characterfourImage} src={Characterfoursprite} alt="sprite" onLoad={(e) => { this.LoadImage(e, this.characterfourImage.current) }} />
                     <img name='castleImage' ref={this.castleImage} src={CastleTool} alt="sprite" onLoad={(e) => { this.LoadImage(e, this.castleImage.current) }} />
                 </div>
+                {this.state.gameover ? <GameOver /> : <div></div>}
+                {this.state.wingame ? <WinGame Thislevel={this.state.thisGameLevel} Levelon={this.state.gameStatus.level} /> : <div></div>}
             </div >
         )
     }

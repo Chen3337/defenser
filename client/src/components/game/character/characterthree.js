@@ -95,7 +95,7 @@ class Characterthree {
             }
             else if (this.spriteNumber === 2) {
                 this.attacked = true;
-                if (this.cycle === 31) {
+                if (this.cycle === 26) {
                     this.hit = true;
                 }
                 this.sprite = {
@@ -153,6 +153,8 @@ class Characterthree {
         const context = state.context;
         context.save()
         context.translate(this.x, this.y);
+        context.font = "20px Arial";
+        context.fillText(this.hp, (0 - this.sizeX * 0.75), -20 - this.sizeY);
         context.scale(-1, 1);
         // drawimage(image, image startx, starty, widthsize, heightsize
         // , canvas x location, canvas y location, canvas image size x, canvas image size y)

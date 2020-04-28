@@ -66,6 +66,9 @@ class Characterfour {
             }
         }
         else if (this.mode === 'attack') {
+            if (this.cycle === 26) {
+                this.hit = true;
+            }
             if (this.spriteNumber < 5) {
                 this.sprite = {
                     startX: 0 + (this.spriteNumber * 56),
@@ -76,9 +79,6 @@ class Characterfour {
             }
             else if (this.spriteNumber === 5) {
                 this.attacked = true;
-                if (this.cycle === 31) {
-                    this.hit = true;
-                }
                 this.sprite = { startX: 385, startY: 176, width: 58, height: 80 }
                 this.attsprite = { startX: 285, startY: 156, width: 90, height: 100 }
             }
@@ -119,6 +119,8 @@ class Characterfour {
         const context = state.context;
         context.save()
         context.translate(this.x, this.y);
+        context.font = "20px Arial";
+        context.fillText(this.hp, (0 - this.sizeX * 0.75), -20 - this.sizeY);
         context.scale(-1, 1);
         // drawimage(image, image startx, starty, widthsize, heightsize
         // , canvas x location, canvas y location, canvas image size x, canvas image size y)

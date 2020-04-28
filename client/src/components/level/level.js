@@ -39,7 +39,7 @@ class Level extends Component {
 
     levelClicked = (level) => {
         if (level < (this.state.gameStatus.level + 1)) {
-            window.location.href = `/game/:${level}`
+            window.location.href = `/game/${level}`
         }
     }
     render() {

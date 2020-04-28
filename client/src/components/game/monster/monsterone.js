@@ -1,5 +1,5 @@
 class Monsterone {
-    constructor() {
+    constructor(status) {
         this.ScreenX = window.innerWidth;
         this.ScreenY = window.innerHeight;
         this.x = this.ScreenX * 0.94;
@@ -21,10 +21,10 @@ class Monsterone {
         this.mode = 'move';
         this.spriteNumber = 0;
         this.cycle = 1;
-        this.speed = this.ScreenX * 0.0005;
+        this.speed = this.ScreenX * (0.0001 * status.speed);
         this.attacked = false;
-        this.hp = 100;
-        this.damage = [10, 15];
+        this.hp = status.hp;
+        this.damage = status.damage;
         this.deletecharacter = false;
         this.hit = false;
     }
@@ -153,6 +153,8 @@ class Monsterone {
         const context = state.context;
         context.save()
         context.translate(this.x, this.y);
+        context.font = "20px Arial";
+        context.fillText(this.hp, (0 + this.sizeX * 0.25), -20 - this.sizeY);
         context.scale(1, 1);
         // drawimage(image, image startx, starty, widthsize, heightsize
         // , canvas x location, canvas y location, canvas image size x, canvas image size y)

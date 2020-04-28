@@ -1,6 +1,12 @@
 var Gamelevel = [
     {
         level: 1,
+        monsters: {
+            monsterone: {
+                number: 10,
+                level:1,
+            }
+        }
     },{
         level: 2,
     },{

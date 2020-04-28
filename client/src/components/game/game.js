@@ -6,12 +6,14 @@ import GroundImage from '../../image/ground.PNG';
 import Toolbar from '../../image/toolbar.PNG';
 import CastleTool from '../../image/castle.png';
 import CharacterData from '../../data/characterinfo';
+import GameLevelData from '../../data/gamelevel';
 // monster and character class files
 import Monsterone from './monster/monsterone';
 import Characterone from './character/characterone';
 import Charactertwo from './character/charactertwo';
 import Characterthree from './character/characterthree';
 import Characterfour from './character/characterfour';
+import Castle from './castle/castle';
 // monster and cahracter sprite images
 import Monsteronesprite from '../../image/monsterone.png';
 import Monstertwosprite from '../../image/monstertwo.png';
@@ -38,6 +40,7 @@ class Game extends Component {
         this.charactertwoImage = React.createRef();
         this.characterthreeImage = React.createRef();
         this.characterfourImage = React.createRef();
+        this.castleImage = React.createRef();
         this.loadingPage = document.getElementById('loading');
     }
     state = {
@@ -51,13 +54,21 @@ class Game extends Component {
         charactertwoImage: null,
         characterthreeImage: null,
         characterfourImage: null,
+        castleImage: null,
         theMonsters: [],
         myCharacters: [],
         context: null,
         distance: window.innerWidth * 0.06,
         characterData: CharacterData,
+        gamelevelMonsters: GameLevelData[parseInt(this.props.match.params.level) - 1].monsters,
         gameStatus: null,
         imageNumber: 0,
+        castle: null,
+        loading: true,
+        time: -1,
+        gameover: false,
+        wingame: false,
+        monsterComing: 0,
     }
 
     componentDidMount() {
@@ -65,15 +76,30 @@ class Game extends Component {
         this.image.src = MainImage;
         this.image.onload = this.LoadImage();
         const context = this.canvas.current.getContext('2d');
+        var monsters = this.state.gamelevelMonsters.monsterone.number;
         this.getGameStatus();
         this.setState({
             context: context,
+            monsterComing: monsters
         })
         requestAnimationFrame(() => { this.update() });
     }
     update = () => {
+        if (this.state.loading) {
+            this.loading();
+        }
+        
         if (this.state.context !== null) {
             this.state.context.clearRect(0, 0, this.state.screenWidth, this.state.screenHeight);
+            if (this.state.castle && this.state.castleImage) {
+                this.state.castle.render(this.state);
+                if(this.state.castle.hp < 1){
+                    console.log('lose');
+                    this.setState({
+                        gameover: true,
+                    })
+                }
+            }
             if (this.state.theMonsters[0] && this.state.myCharacters[0]) {
                 var distance = this.state.theMonsters[0].x - this.state.myCharacters[0].x;
                 if (distance < 0) {
@@ -93,11 +119,11 @@ class Game extends Component {
                     }
                 }
                 if (this.state.theMonsters[0].hit) {
-                    this.state.myCharacters[0].attackedDamage(this.state.theMonsters[0].damage[0]);
+                    this.state.myCharacters[0].attackedDamage(this.state.theMonsters[0].damage);
                     this.state.theMonsters[0].finishHit();
                 }
                 if (this.state.myCharacters[0].hit) {
-                    this.state.theMonsters[0].attackedDamage(this.state.myCharacters[0].damage[0]);
+                    this.state.theMonsters[0].attackedDamage(this.state.myCharacters[0].damage);
                     this.state.myCharacters[0].finishHit();
                 }
                 if (this.state.theMonsters[0].deletecharacter) {
@@ -107,13 +133,26 @@ class Game extends Component {
                     this.deleteCharacter();
                 }
             }
+
             if (this.state.theMonsters.length !== 0 && this.state.myCharacters.length === 0) {
-                if (this.state.theMonsters[0].mode !== 'move') {
+                if (this.state.theMonsters[0].x < this.state.distance) {
+                    if (this.state.theMonsters[0].mode !== 'attack') {
+                        this.state.theMonsters[0].changemode('attack');
+                    }
+                    if (this.state.theMonsters[0].hit) {
+                        this.state.castle.attackedDamage(this.state.theMonsters[0].damage);
+                        this.state.theMonsters[0].finishHit();
+                    }
+                }
+                else if (this.state.theMonsters[0].mode !== 'move') {
                     this.state.theMonsters[0].changemode('move');
                 }
             }
             if (this.state.theMonsters.length === 0 && this.state.myCharacters.length !== 0) {
-                if (this.state.myCharacters[0].mode !== 'move') {
+                if (this.state.myCharacters[0].x > (this.state.screenWidth - this.state.distance)) {
+                    this.state.myCharacters[0].changemode('stay');
+                }
+                else if (this.state.myCharacters[0].mode !== 'move') {
                     this.state.myCharacters[0].changemode('move');
                 }
             }
@@ -147,6 +186,12 @@ class Game extends Component {
                     this.state.myCharacters[j].render(this.state);
                 }
             }
+            if(this.state.theMonsters.length === 0 && this.state.monsterComing === 0){
+                console.log("win");
+                this.setState({
+                    wingame : true,
+                })
+            }
         }
         requestAnimationFrame(() => { this.update() });
     }
@@ -170,9 +215,44 @@ class Game extends Component {
     componentWillUnmount() {
         this.loadingPage.style.zIndex = 1000;
     }
+    addMonster = (monsterNum, monsterLvl) => {
+        var monster;
+        if (monsterNum === 'monsterone') {
+            monster = new Monsterone(this.state.characterData.characterone[monsterLvl - 1]);
+        }
+        var monsters = this.state.theMonsters.concat(monster);
+        var monsterComing = this.state.monsterComing -1;
+        this.setState({
+            theMonsters: monsters,
+            monsterComing: monsterComing,
+        })
+    }
+    thisLevelMonsters = () => {
+        var timer = 2000;
+        var monsterinfo = this.state.gamelevelMonsters;
+        if (monsterinfo.monsterone) {
+            for (var i = 0; i < monsterinfo.monsterone.number; i++) {
+                this.settingTimer('monsterone', monsterinfo.monsterone.level, timer)
+                timer += 5000;
+            }
+        }
+
+    }
+    settingTimer = (monsterNum, Lvl, time) => {
+        setTimeout(() => { this.addMonster(monsterNum, Lvl) }, time);
+    }
     loading = () => {
-        if (this.state.gameStatus && this.state.imageNumber === 15) {
+        if (this.state.gameStatus && this.state.imageNumber === 16) {
             this.loadingPage.style.zIndex = -1000;
+            this.thisLevelMonsters();
+            setInterval(() => {
+                var time = this.state.time + 1;
+                this.setState({ time: time })
+            }, 1000);
+            this.setState({
+                loading: false,
+                castle: new Castle(this.state.characterData.castle[this.state.gameStatus.castle - 1])
+            });
         }
     }
     getGameStatus = () => {
@@ -181,24 +261,43 @@ class Game extends Component {
                 if (result.data === 'no user') {
                     window.location.href = '/';
                 }
-                this.setState({ gameStatus: result.data });
+                this.setState({
+                    gameStatus: result.data,
+                });
             })
     }
     addCharacter = (name) => {
         var character;
+        var coinneed;
+        var newChar = true;
         if (name === 'characterone') {
-            character = new Characterone(this.state.characterData.characterone[this.state.gameStatus.characterone - 1]);
-        }else if (name === 'charactertwo') {
-            character = new Charactertwo(this.state.characterData.charactertwo[this.state.gameStatus.charactertwo - 1]);
+            coinneed = this.state.characterData.characterone[this.state.gameStatus.characterone - 1].summon;
+            if (this.state.castle.coin > (coinneed - 1)) {
+                character = new Characterone(this.state.characterData.characterone[this.state.gameStatus.characterone - 1]);
+            } else { newChar = false; }
+        } else if (name === 'charactertwo') {
+            coinneed = this.state.characterData.charactertwo[this.state.gameStatus.charactertwo - 1].summon;
+            if (this.state.castle.coin > (coinneed - 1)) {
+                character = new Charactertwo(this.state.characterData.charactertwo[this.state.gameStatus.charactertwo - 1]);
+            } else { newChar = false; }
         } else if (name === 'characterthree') {
-            character = new Characterthree(this.state.characterData.characterthree[this.state.gameStatus.characterthree - 1]);
+            coinneed = this.state.characterData.characterthree[this.state.gameStatus.characterthree - 1].summon;
+            if (this.state.castle.coin > (coinneed - 1)) {
+                character = new Characterthree(this.state.characterData.characterthree[this.state.gameStatus.characterthree - 1]);
+            } else { newChar = false; }
         } else if (name === 'characterfour') {
-            character = new Characterfour(this.state.characterData.characterfour[this.state.gameStatus.characterfour - 1]);
+            coinneed = this.state.characterData.characterfour[this.state.gameStatus.characterfour - 1].summon;
+            if (this.state.castle.coin > (coinneed - 1)) {
+                character = new Characterfour(this.state.characterData.characterfour[this.state.gameStatus.characterfour - 1]);
+            } else { newChar = false; }
         }
-        var characters = this.state.myCharacters.concat(character);
-        this.setState({
-            myCharacters: characters,
-        })
+        if (newChar) {
+            var characters = this.state.myCharacters.concat(character);
+            this.state.castle.minusCoin(coinneed);
+            this.setState({
+                myCharacters: characters,
+            })
+        }
     }
     deleteCharacter = () => {
         var newCharacterList = this.state.myCharacters.slice();
@@ -206,13 +305,6 @@ class Game extends Component {
         this.setState({
             myCharacters: newCharacterList,
         });
-    }
-    addMonster = () => {
-        var monster = new Monsterone();
-        var monsters = this.state.theMonsters.concat(monster);
-        this.setState({
-            theMonsters: monsters,
-        })
     }
     deleteMonster = () => {
         var newMonsterList = this.state.theMonsters.slice();
@@ -222,10 +314,6 @@ class Game extends Component {
         });
     }
     render() {
-        if (this.loadingPage.style.zIndex !== -1000) {
-            this.loading()
-        }
-        console.log(this.state)
         return (
             <div>
                 <div style={{ width: "100%", height: '20vh', position: "fixed", top: '0', left: '10px', zIndex: "10" }}>
@@ -249,6 +337,15 @@ class Game extends Component {
                         <br />
                         <b style={{ color: 'white' }}>{this.state.gameStatus ? this.state.characterData.characterfour[this.state.gameStatus.characterfour - 1].summon : 'unknown'}</b>
                     </div>
+                    <div style={{ display: 'inline-block', float: 'left', width: "20%", height: '100%', textAlign: 'center', paddingTop: '5px' }}>
+                        <h3 style={{ color: 'white' }}>Coin: {this.state.castle ? this.state.castle.coin : 'unknown'}</h3>
+                    </div>
+                    <div style={{ display: 'inline-block', float: 'left', width: "20%", height: '100%', textAlign: 'center', paddingTop: '5px' }}>
+                        <h3 style={{ color: 'white' }}>Monster Left: {this.state.monsterComing}</h3>
+                    </div>
+                    <div style={{ display: 'inline-block', float: 'left', width: "20%", height: '100%', textAlign: 'center', paddingTop: '5px' }}>
+                        <h3 style={{ color: 'white' }}>Time: {this.state.time}</h3>
+                    </div>
                 </div>
                 <img onLoad={() => { this.LoadImage() }} style={{ width: "100%", height: '20vh', position: "fixed", top: "0" }} src={Toolbar} alt="toolbar" />
                 <img onLoad={() => { this.LoadImage() }} style={{ width: "100%", height: '20vh', position: "fixed", bottom: "0" }} src={GroundImage} alt="ground" />
@@ -267,6 +364,7 @@ class Game extends Component {
                     <img name='charactertwoImage' ref={this.charactertwoImage} src={Charactertwosprite} alt="sprite" onLoad={(e) => { this.LoadImage(e, this.charactertwoImage.current) }} />
                     <img name='characterthreeImage' ref={this.characterthreeImage} src={Characterthreesprite} alt="sprite" onLoad={(e) => { this.LoadImage(e, this.characterthreeImage.current) }} />
                     <img name='characterfourImage' ref={this.characterfourImage} src={Characterfoursprite} alt="sprite" onLoad={(e) => { this.LoadImage(e, this.characterfourImage.current) }} />
+                    <img name='castleImage' ref={this.castleImage} src={CastleTool} alt="sprite" onLoad={(e) => { this.LoadImage(e, this.castleImage.current) }} />
                 </div>
             </div >
         )

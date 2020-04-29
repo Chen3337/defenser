@@ -11,6 +11,9 @@ import CharacterData from '../../data/characterinfo';
 import GameLevelData from '../../data/gamelevel';
 // monster and character class files
 import Monsterone from './monster/monsterone';
+import Monstertwo from './monster/monstertwo';
+import Monsterthree from './monster/monsterthree';
+import Monsterfour from './monster/monsterfour';
 import Characterone from './character/characterone';
 import Charactertwo from './character/charactertwo';
 import Characterthree from './character/characterthree';
@@ -80,7 +83,7 @@ class Game extends Component {
         this.image.src = MainImage;
         this.image.onload = this.LoadImage();
         const context = this.canvas.current.getContext('2d');
-        var monsters = this.state.gamelevelMonsters.monsterone.number;
+        var monsters = this.state.gamelevelMonsters.monsterone.number + this.state.gamelevelMonsters.monstertwo.number + this.state.gamelevelMonsters.monsterthree.number + this.state.gamelevelMonsters.monsterfour.number;
         this.getGameStatus();
         this.setState({
             context: context,
@@ -241,6 +244,15 @@ class Game extends Component {
         if (monsterNum === 'monsterone') {
             monster = new Monsterone(this.state.characterData.characterone[monsterLvl - 1]);
         }
+        else if (monsterNum === 'monstertwo'){
+            monster = new Monstertwo(this.state.characterData.charactertwo[monsterLvl - 1]);
+        }
+        else if (monsterNum === 'monsterthree'){
+            monster = new Monsterthree(this.state.characterData.characterthree[monsterLvl - 1]);
+        }
+        else if (monsterNum === 'monsterfour'){
+            monster = new Monsterfour(this.state.characterData.characterfour[monsterLvl - 1]);
+        }
         var monsters = this.state.theMonsters.concat(monster);
         var monsterComing = this.state.monsterComing -1;
         this.setState({
@@ -254,6 +266,24 @@ class Game extends Component {
         if (monsterinfo.monsterone) {
             for (var i = 0; i < monsterinfo.monsterone.number; i++) {
                 this.settingTimer('monsterone', monsterinfo.monsterone.level, timer)
+                timer += 5000;
+            }
+        }
+        if (monsterinfo.monstertwo) {
+            for (var i = 0; i < monsterinfo.monstertwo.number; i++) {
+                this.settingTimer('monstertwo', monsterinfo.monstertwo.level, timer)
+                timer += 5000;
+            }
+        }
+        if (monsterinfo.monsterthree) {
+            for (var i = 0; i < monsterinfo.monsterthree.number; i++) {
+                this.settingTimer('monsterthree', monsterinfo.monsterthree.level, timer)
+                timer += 5000;
+            }
+        }
+        if (monsterinfo.monsterfour) {
+            for (var i = 0; i < monsterinfo.monsterfour.number; i++) {
+                this.settingTimer('monsterfour', monsterinfo.monsterfour.level, timer)
                 timer += 5000;
             }
         }

@@ -22,7 +22,6 @@ var Gamelevel = [
     },
     {
         level: 2,
-
         monsters: {
             monsterone: {
                 number: 5,
@@ -379,7 +378,7 @@ var Gamelevel = [
         }
     },
     {
-        evel: 19,
+        level: 19,
         monsters: {
             monsterone: {
                 number: 7,
@@ -400,7 +399,7 @@ var Gamelevel = [
         }
     },
     {
-        evel: 20,
+        level: 20,
         monsters: {
             monsterone: {
                 number: 7,
@@ -421,7 +420,7 @@ var Gamelevel = [
         }
     },
     {
-        evel: 21,
+        level: 21,
         monsters: {
             monsterone: {
                 number: 5,
@@ -442,7 +441,7 @@ var Gamelevel = [
         }
     },
     {
-        evel: 22,
+        level: 22,
         monsters: {
             monsterone: {
                 number: 0,
@@ -463,7 +462,7 @@ var Gamelevel = [
         }
     },
     {
-        evel: 23,
+        level: 23,
         monsters: {
             monsterone: {
                 number: 0,
@@ -484,7 +483,7 @@ var Gamelevel = [
         }
     },
     {
-        evel: 24,
+        level: 24,
         monsters: {
             monsterone: {
                 number: 0,
@@ -505,7 +504,7 @@ var Gamelevel = [
         }
     },
     {
-        evel: 25,
+        level: 25,
         monsters: {
             monsterone: {
                 number: 0,

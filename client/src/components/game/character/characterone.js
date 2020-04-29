@@ -18,6 +18,12 @@ class Characterone {
         this.deletecharacter = false;
         this.hit = false;
     }
+    damagefunc(){
+        var difference = Math.floor(Math.random()* 7);
+        difference -= 3;
+        difference += this.damage;
+        return difference;
+    }
     attackedDamage(damage) {
         this.hp -= damage;
     }

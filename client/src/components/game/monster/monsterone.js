@@ -9,13 +9,13 @@ class Monsterone {
             startY : 0,
             width : 130,
             height : 180,
-        }
+        };
         this.attsprite = {
             startX : 0,
             startY : 845,
             width : 130,
             height : 165,
-        }
+        };
         this.sizeX = this.ScreenX * 0.06;
         this.sizeY = this.ScreenY * 0.15;
         this.mode = 'move';
@@ -48,7 +48,7 @@ class Monsterone {
     }
     spriteChange() {
         if(this.mode === 'dead'){
-            if(this.spriteNumber === 0 ||this.spriteNumber ===  1 ||this.spriteNumber ===  2 ){
+            if(this.spriteNumber < 3 ){
                 this.sprite = {
                     startX : 0  + (this.spriteNumber * 132),
                     startY : 1045,
@@ -56,7 +56,7 @@ class Monsterone {
                     height : 250,
                 }
             }
-            else if(this.spriteNumber === 3 ||this.spriteNumber ===  4){
+            else if(this.spriteNumber > 2){
                 this.sprite = {
                     startX : 0  + (this.spriteNumber * 138.5),
                     startY : 1045,

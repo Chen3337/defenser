@@ -11,19 +11,19 @@ class Characterfour {
         this.mode = 'move';
         this.spriteNumber = 0;
         this.cycle = 1;
-        this.speed = this.ScreenX * (0.0001 * status.speed);
+        this.speed = this.ScreenX * 0.0005;
         this.attacked = false;
         this.hp = status.hp;
         this.damage = status.damage;
         this.deletecharacter = false;
         this.hit = false;
     }
-    damagefunc(){
-        var difference = Math.floor(Math.random()* 7);
-        difference -= 3;
-        difference += this.damage;
-        return difference;
-    }
+    // damagefunc(){
+    //     var difference = Math.floor(Math.random()* 7);
+    //     difference -= 3;
+    //     difference += this.damage;
+    //     return difference;
+    // }
     attackedDamage(damage) {
         this.hp -= damage;
     }

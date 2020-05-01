@@ -125,11 +125,11 @@ class Game extends Component {
                     }
                 }
                 if (this.state.theMonsters[0].hit) {
-                    this.state.myCharacters[0].attackedDamage(this.state.theMonsters[0].damagefunc());
+                    this.state.myCharacters[0].attackedDamage(this.state.theMonsters[0].damage);
                     this.state.theMonsters[0].finishHit();
                 }
                 if (this.state.myCharacters[0].hit) {
-                    this.state.theMonsters[0].attackedDamage(this.state.myCharacters[0].damagefunc());
+                    this.state.theMonsters[0].attackedDamage(this.state.myCharacters[0].damage);
                     this.state.myCharacters[0].finishHit();
                 }
             }
@@ -139,7 +139,7 @@ class Game extends Component {
                         this.state.theMonsters[0].changemode('attack');
                     }
                     if (this.state.theMonsters[0].hit) {
-                        this.state.castle.attackedDamage(this.state.theMonsters[0].damagefunc());
+                        this.state.castle.attackedDamage(this.state.theMonsters[0].damage);
                         this.state.theMonsters[0].finishHit();
                     }
                 }
@@ -157,7 +157,7 @@ class Game extends Component {
             }
             if (this.state.theMonsters.length !== 0) {
                 if (this.state.theMonsters[0].deletecharacter) {
-                    this.state.castle.addCoin(this.state.theMonsters[0].coin * 0.5);
+                    this.state.castle.addCoin(Math.floor(this.state.theMonsters[0].coin * 1.3));
                     this.deleteMonster();
                 }
                 for (var i = 0; i < this.state.theMonsters.length; i++) {

@@ -9,7 +9,6 @@ class Castle {
         this.hp = status.hp;
         this.coin = status.coin;
         this.income = status.income;
-        this.timer = setInterval(() => { this.coin += this.income }, 1000);
     }
     addCoin(amount) {
         this.coin += amount;
